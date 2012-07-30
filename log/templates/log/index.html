@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Codecollision</title>
+        <meta name="description" content="codecollision - web development, javascript, python, appengine and game development" />
+        <meta name="keywords" content="javascript, appengine, actionscript 3.0, as3, web design, python, django, jQuery" />
+        <meta name="author" content="Michael Martin">
+
+        <!-- styles -->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{{ MEDIA_URL }}css/codecollision.css">
+
+        <link rel="shortcut icon" href="/favicon.ico">
+    </head>
+
+    <body>
+        <div id="outer">
+            <div id="container">
+
+                <!-- header -->
+                <div id="header">
+                    <h1><span>codecollision</span></h1>
+                </div>
+
+                <!-- navigation -->
+                <div id="navigation">
+
+                    <!-- main navigation -->
+                    <div id="main-navigation">
+                        <ul>
+                            <li id="log"><a href="/"><span>Log</span></a></li>
+                            <li id="projects"><a href="/page/projects/"><span>Projects</span></a></li>
+                            <li id="profile"><a href="/page/profile/"><span>Profile</span></a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- content -->
+                <div id="content" role="main">
+
+                    <!-- posts tempate -->
+                    {% for item in post_list %}
+                    <div class="post">
+                        <div class="header">
+                            <div class="titlebar">
+                                <h2><a class="postLink" href="/{{ item.fields.post_name }}/">{{ item.fields.post_title }}</a></h2>
+                                {% if type == 'post' %}
+                                    <h2 class="date">{{ item.fields.post_date|date:"M d.Y" }}</h2>
+                                {% endif %}
+                            </div>
+                            <!-- categories -->
+                            {% if type == 'post' %}
+                            <div class="categories">
+                                {% for category in item.fields.post_categories %}
+                                    <h3><a href="/category/{{ category|safe }}/">{{ category|safe }}</a></h3>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="content">{{ item.fields.post_content|safe }}</div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- TEMPLATES -->
+        <!-- posts template -->
+        <script type="text/template" id="posts-template">
+            <% _.each(post_list, function(post) { %>
+                <div class="post">
+                    <div class="header">
+                        <div class="titlebar">
+                            <h2><a class="postLink" href="/<%= post.fields.post_name %>/"><%= post.fields.post_title %></a></h2>
+                            <% if (type === 'post') { %>
+                                <h2 class="date"><%=  Codecollision.util.utilities.formatPostDate(post.fields.post_date) %></h2>
+                            <% } %>
+                        </div>
+                        <% if (type === 'post') { %>
+                        <div class="categories">
+                            <% _.each(post.fields.post_categories, function(category) { %>
+                                <h3><a href="/category/<%= category %>/"><%= category %></a></h3>
+                            <% }); %>
+                        </div>
+                        <% } %>
+                    </div>
+                    <div class="content"><%= post.fields.post_content %></div>
+                </div>
+            <% }); %>
+        </script>
+
+        <!-- JAVASCRIPT LIBRARIES -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script src="http://media.codecollision.com/lib/structure.min.js"></script>
+        <script src="http://media.codecollision.com/lib/underscore.min.js"></script>
+        <script src="http://media.codecollision.com/lib/jquery.history.min.js"></script>
+
+        <!-- SCRIPTS -->
+        <script src="{{ MEDIA_URL }}js/codecollision.js"></script>
+        <script src="{{ MEDIA_URL }}js/util/history.js"></script>
+        <script src="{{ MEDIA_URL }}js/util/utilities.js"></script>
+        <script src="{{ MEDIA_URL }}js/posts/post_model.js"></script>
+        <script src="{{ MEDIA_URL }}js/posts/post_view.js"></script>
+
+        <script src="{{ MEDIA_URL }}js/init.js"></script>
+        <!-- <script src="http://media.codecollision.com/dist/scripts.min.js"></script> -->
+
+        <!-- GOOGLE ANALYTICS -->
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-3940107-1']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+
+    </body>
+</html>
