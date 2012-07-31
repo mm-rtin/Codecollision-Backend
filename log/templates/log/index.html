@@ -7,6 +7,10 @@
         <meta name="keywords" content="javascript, appengine, actionscript 3.0, as3, web design, python, django, jQuery" />
         <meta name="author" content="Michael Martin">
 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
         <!-- styles -->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="{{ MEDIA_URL }}css/codecollision.css">
@@ -18,9 +22,42 @@
         <div id="outer">
             <div id="container">
 
-                <!-- header -->
-                <div id="header">
-                    <h1><span>codecollision</span></h1>
+                <div id="scroller">
+
+                    <!-- header -->
+                    <div id="header">
+                        <h1><span>codecollision</span></h1>
+                    </div>
+
+                    <!-- content -->
+                    <div id="content" role="main">
+
+                        <!-- posts tempate -->
+                        {% for item in post_list %}
+                        <div class="post">
+                            <div class="header">
+                                <div class="titlebar">
+                                    {% if type == 'post' %}
+                                        <h2><a class="postLink" href="/{{ item.fields.post_name }}/">{{ item.fields.post_title }}</a></h2>
+                                        <h2 class="date">{{ item.fields.post_date|date:"M d.Y" }}</h2>
+                                    {% else %}
+                                        <h2>{{ item.fields.post_title }}</h2>
+                                    {% endif %}
+                                </div>
+                                <!-- categories -->
+                                {% if type == 'post' %}
+                                <div class="categories">
+                                    {% for category in item.fields.post_categories %}
+                                        <h3><a href="/category/{{ category|safe }}/">{{ category|safe }}</a></h3>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="content">{{ item.fields.post_content|safe }}</div>
+                        </div>
+                        {% endfor %}
+
+                    </div>
                 </div>
 
                 <!-- navigation -->
@@ -36,35 +73,6 @@
                     </div>
 
                 </div>
-
-                <!-- content -->
-                <div id="content" role="main">
-
-                    <!-- posts tempate -->
-                    {% for item in post_list %}
-                    <div class="post">
-                        <div class="header">
-                            <div class="titlebar">
-                                <h2><a class="postLink" href="/{{ item.fields.post_name }}/">{{ item.fields.post_title }}</a></h2>
-                                {% if type == 'post' %}
-                                    <h2 class="date">{{ item.fields.post_date|date:"M d.Y" }}</h2>
-                                {% endif %}
-                            </div>
-                            <!-- categories -->
-                            {% if type == 'post' %}
-                            <div class="categories">
-                                {% for category in item.fields.post_categories %}
-                                    <h3><a href="/category/{{ category|safe }}/">{{ category|safe }}</a></h3>
-                                {% endfor %}
-                            </div>
-                            {% endif %}
-                        </div>
-                        <div class="content">{{ item.fields.post_content|safe }}</div>
-                    </div>
-                    {% endfor %}
-
-                </div>
-
             </div>
         </div>
 
@@ -75,9 +83,11 @@
                 <div class="post">
                     <div class="header">
                         <div class="titlebar">
-                            <h2><a class="postLink" href="/<%= post.fields.post_name %>/"><%= post.fields.post_title %></a></h2>
                             <% if (type === 'post') { %>
+                                <h2><a class="postLink" href="/<%= post.fields.post_name %>/"><%= post.fields.post_title %></a></h2>
                                 <h2 class="date"><%=  Codecollision.util.utilities.formatPostDate(post.fields.post_date) %></h2>
+                            <% } else { %>
+                                <h2><%= post.fields.post_title %></h2>
                             <% } %>
                         </div>
                         <% if (type === 'post') { %>
@@ -98,6 +108,8 @@
         <script src="http://media.codecollision.com/lib/structure.min.js"></script>
         <script src="http://media.codecollision.com/lib/underscore.min.js"></script>
         <script src="http://media.codecollision.com/lib/jquery.history.min.js"></script>
+        <script src="http://media.codecollision.com/lib/yepnope.1.5.4-min.js"></script>
+        <script src="http://media.codecollision.com/lib/iscroll-lite.js"></script>
 
         <!-- SCRIPTS -->
         <script src="{{ MEDIA_URL }}js/codecollision.js"></script>
