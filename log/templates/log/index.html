@@ -29,6 +29,8 @@
                         <h1><span>codecollision</span></h1>
                     </div>
 
+                    <div id="loading-status"></div>
+
                     <!-- content -->
                     <div id="content" role="main">
 
@@ -103,24 +105,6 @@
             <% }); %>
         </script>
 
-        <!-- JAVASCRIPT LIBRARIES -->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-        <script src="http://media.codecollision.com/lib/structure.min.js"></script>
-        <script src="http://media.codecollision.com/lib/underscore.min.js"></script>
-        <script src="http://media.codecollision.com/lib/jquery.history.min.js"></script>
-        <script src="http://media.codecollision.com/lib/yepnope.1.5.4-min.js"></script>
-        <script src="http://media.codecollision.com/lib/iscroll-lite.js"></script>
-
-        <!-- SCRIPTS -->
-        <script src="{{ MEDIA_URL }}js/codecollision.js"></script>
-        <script src="{{ MEDIA_URL }}js/util/history.js"></script>
-        <script src="{{ MEDIA_URL }}js/util/utilities.js"></script>
-        <script src="{{ MEDIA_URL }}js/posts/post_model.js"></script>
-        <script src="{{ MEDIA_URL }}js/posts/post_view.js"></script>
-
-        <script src="{{ MEDIA_URL }}js/init.js"></script>
-        <!-- <script src="http://media.codecollision.com/dist/scripts.min.js"></script> -->
-
         <!-- GOOGLE ANALYTICS -->
         <script type="text/javascript">
             var _gaq = _gaq || [];
@@ -133,6 +117,25 @@
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
             })();
         </script>
+
+        <!-- JAVASCRIPT LIBRARIES -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script src="{{ MEDIA_URL }}lib/structure.min.js"></script>
+        <script src="{{ MEDIA_URL }}lib/underscore.min.js"></script>
+        <script src="{{ MEDIA_URL }}lib/jquery.history.min.js"></script>
+        <script src="{{ MEDIA_URL }}lib/yepnope.1.5.4-min.js"></script>
+        <script src="{{ MEDIA_URL }}lib/iscroll-lite.js"></script>
+
+        <!-- SCRIPTS -->
+        <script src="{{ MEDIA_URL }}js/codecollision.js"></script>
+        <script src="{{ MEDIA_URL }}js/util/history.js"></script>
+        <script src="{{ MEDIA_URL }}js/util/utilities.js"></script>
+        <script src="{{ MEDIA_URL }}js/util/prefetch.js"></script>
+        <script src="{{ MEDIA_URL }}js/posts/post_model.js"></script>
+        <script src="{{ MEDIA_URL }}js/posts/post_view.js"></script>
+
+        <script src="{{ MEDIA_URL }}js/init.js"></script>
+        <!-- <script src="http://media.codecollision.com/dist/scripts.min.js"></script> -->
 
     </body>
 </html>
