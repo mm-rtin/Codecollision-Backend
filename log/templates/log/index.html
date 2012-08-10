@@ -11,70 +11,69 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
+
         <!-- styles -->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="{{ MEDIA_URL }}css/codecollision.css">
+        <link rel="stylesheet" href="http://media.codecollision.com/css/codecollision.css">
+        {% if isMobileDevice %}
+            <link rel="stylesheet" href="http://media.codecollision.com/css/mobile.css">
+        {% endif %}
 
         <link rel="shortcut icon" href="/favicon.ico">
     </head>
 
     <body>
-        <div id="outer">
-            <div id="container">
+        <div id="container">
 
-                <div id="scroller">
+            <!-- header -->
+            <div id="header">
+                <h1><span>codecollision</span></h1>
+            </div>
 
-                    <!-- header -->
-                    <div id="header">
-                        <h1><span>codecollision</span></h1>
-                    </div>
+            <div id="loading-status"></div>
 
-                    <div id="loading-status"></div>
+            <!-- content -->
+            <div id="content" role="main">
 
-                    <!-- content -->
-                    <div id="content" role="main">
-
-                        <!-- posts tempate -->
-                        {% for item in post_list %}
-                        <div class="post">
-                            <div class="header">
-                                <div class="titlebar">
-                                    {% if type == 'post' %}
-                                        <h2><a class="postLink" href="/{{ item.fields.post_name }}/">{{ item.fields.post_title }}</a></h2>
-                                        <h2 class="date">{{ item.fields.post_date|date:"M d.Y" }}</h2>
-                                    {% else %}
-                                        <h2>{{ item.fields.post_title }}</h2>
-                                    {% endif %}
-                                </div>
-                                <!-- categories -->
-                                {% if type == 'post' %}
-                                <div class="categories">
-                                    {% for category in item.fields.post_categories %}
-                                        <h3><a href="/category/{{ category|safe }}/">{{ category|safe }}</a></h3>
-                                    {% endfor %}
-                                </div>
-                                {% endif %}
-                            </div>
-                            <div class="content">{{ item.fields.post_content|safe }}</div>
+                <!-- posts tempate -->
+                {% for item in post_list %}
+                <div class="post">
+                    <div class="header">
+                        <div class="titlebar">
+                            {% if type == 'post' %}
+                                <h2><a class="postLink" href="/{{ item.fields.post_name }}/">{{ item.fields.post_title }}</a></h2>
+                                <h2 class="date">{{ item.fields.post_date|date:"M d.Y" }}</h2>
+                            {% else %}
+                                <h2>{{ item.fields.post_title }}</h2>
+                            {% endif %}
                         </div>
-                        {% endfor %}
-
+                        <!-- categories -->
+                        {% if type == 'post' %}
+                        <div class="categories">
+                            {% for category in item.fields.post_categories %}
+                                <h3><a href="/category/{{ category|safe }}/">{{ category|safe }}</a></h3>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
                     </div>
+                    <div class="content">{{ item.fields.post_content|safe }}</div>
+                </div>
+                {% endfor %}
+
+            </div>
+
+            <!-- navigation -->
+            <div id="navigation">
+
+                <!-- main navigation -->
+                <div id="main-navigation">
+                    <ul>
+                        <li id="log"><a href="/"><span>Log</span></a></li>
+                        <li id="projects"><a href="/page/projects/"><span>Projects</span></a></li>
+                        <li id="profile"><a href="/page/profile/"><span>Profile</span></a></li>
+                    </ul>
                 </div>
 
-                <!-- navigation -->
-                <div id="navigation">
-
-                    <!-- main navigation -->
-                    <div id="main-navigation">
-                        <ul>
-                            <li id="log"><a href="/"><span>Log</span></a></li>
-                            <li id="projects"><a href="/page/projects/"><span>Projects</span></a></li>
-                            <li id="profile"><a href="/page/profile/"><span>Profile</span></a></li>
-                        </ul>
-                    </div>
-
-                </div>
             </div>
         </div>
 
@@ -118,24 +117,11 @@
             })();
         </script>
 
-        <!-- JAVASCRIPT LIBRARIES -->
+        <!-- JAVASCRIPT -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-        <script src="{{ MEDIA_URL }}lib/structure.min.js"></script>
-        <script src="{{ MEDIA_URL }}lib/underscore.min.js"></script>
-        <script src="{{ MEDIA_URL }}lib/jquery.history.min.js"></script>
-        <script src="{{ MEDIA_URL }}lib/yepnope.1.5.4-min.js"></script>
-        <script src="{{ MEDIA_URL }}lib/iscroll-lite.js"></script>
-
-        <!-- SCRIPTS -->
-        <script src="{{ MEDIA_URL }}js/codecollision.js"></script>
-        <script src="{{ MEDIA_URL }}js/util/history.js"></script>
-        <script src="{{ MEDIA_URL }}js/util/utilities.js"></script>
-        <script src="{{ MEDIA_URL }}js/util/prefetch.js"></script>
-        <script src="{{ MEDIA_URL }}js/posts/post_model.js"></script>
-        <script src="{{ MEDIA_URL }}js/posts/post_view.js"></script>
-
-        <script src="{{ MEDIA_URL }}js/init.js"></script>
-        <!-- <script src="http://media.codecollision.com/dist/scripts.min.js"></script> -->
-
+        {% if isMobileDevice %}
+            <script src="http://media.codecollision.com/js/mobile.js"></script>
+        {% endif %}
+        <script src="http://media.codecollision.com/dist/scripts.min.js"></script>
     </body>
 </html>

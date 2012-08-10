@@ -9,6 +9,8 @@ import re
 from urlparse import urljoin
 from BeautifulSoup import BeautifulSoup, Comment
 
+from mobileesp import mdetect
+
 
 # sanitize HTML
 def sanitizeHtml(value, base_url=None):
@@ -292,5 +294,17 @@ def get_posts(request, select='none', selectName='all', page='1'):
     postDictionary['next_page'] = nextPage
     postDictionary['previous_page'] = previousPage
     postDictionary['categories'] = categories
+    postDictionary['isMobileDevice'] = False
+
+    # detect mobile
+    user_agent = request.META.get("HTTP_USER_AGENT")
+    http_accept = request.META.get("HTTP_ACCEPT")
+
+    if user_agent and http_accept:
+        agent = mdetect.UAgentInfo(userAgent=user_agent, httpAccept=http_accept)
+
+        # detect all tablets and iphone/android/wp7
+        if agent.detectTierTablet() or agent.detectTierIphone():
+            postDictionary['isMobileDevice'] = True
 
     return render_to_response('log/index.html', postDictionary, context_instance=RequestContext(request))

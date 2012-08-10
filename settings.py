@@ -1,6 +1,6 @@
 # Django settings for codecollision project.
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -74,7 +74,7 @@ MEDIA_ROOT = '/home/hexvector/webapps/codecollision_media/'
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = 'http://media.codecollision.com/'
+MEDIA_URL = 'http://dtli0f3gwjwjm.cloudfront.net/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
