@@ -180,13 +180,18 @@ def get_posts_json(request, select='none', selectName='all', page='1'):
         posts = Posts.objects.filter(post_status='publish', post_type='post')
 
     # specific page number requested
-    entriesPerPage = 3
+    entriesPerPage = 1
     pageNumber = int(page)
-    maxPages = math.ceil(float(len(posts)) / float(entriesPerPage))
+    maxPages = int(math.ceil(float(len(posts)) / float(entriesPerPage)))
 
     # PAGE NUMBERS
-    nextPage = pageNumber + 1
-    previousPage = pageNumber - 1
+    nextPage = 0
+    if (pageNumber + 1 <= maxPages):
+        nextPage = pageNumber + 1
+
+    previousPage = 0
+    if (pageNumber - 0 >= 0):
+        previousPage = pageNumber - 1
 
     entryStart = (pageNumber - 1) * entriesPerPage
     entryEnd = entryStart + entriesPerPage
@@ -248,13 +253,25 @@ def get_posts(request, select='none', selectName='all', page='1'):
         posts = Posts.objects.filter(post_status='publish', post_type='post')
 
     # specific page number requested
-    entriesPerPage = 3
+    entriesPerPage = 1
     pageNumber = int(page)
-    maxPages = math.ceil(float(len(posts)) / float(entriesPerPage))
+    maxPages = int(math.ceil(float(len(posts)) / float(entriesPerPage)))
 
     # PAGE NUMBERS
-    nextPage = pageNumber + 1
-    previousPage = pageNumber - 1
+    nextPage = 0
+    nextRange = []
+    if (pageNumber + 1 <= maxPages):
+        nextPage = pageNumber + 1
+        nextRange = range(nextPage, maxPages + 1)
+
+    previousPage = 0
+    previousRange = []
+    if (pageNumber - 1 > 0):
+        previousPage = pageNumber - 1
+        previousRange = range(1, previousPage + 1)
+
+    # PAGES
+    pages = previousRange + nextRange
 
     entryStart = (pageNumber - 1) * entriesPerPage
     entryEnd = entryStart + entriesPerPage
@@ -293,6 +310,7 @@ def get_posts(request, select='none', selectName='all', page='1'):
     postDictionary['max_pages'] = maxPages
     postDictionary['next_page'] = nextPage
     postDictionary['previous_page'] = previousPage
+    postDictionary['pages'] = pages
     postDictionary['categories'] = categories
     postDictionary['isMobileDevice'] = False
 

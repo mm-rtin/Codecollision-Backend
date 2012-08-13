@@ -33,7 +33,7 @@
             <div id="loading-status"></div>
 
             <!-- content -->
-            <div id="content" role="main">
+            <div id="content" role="main" data-nextpage="{{ next_page }}">
 
                 <!-- posts tempate -->
                 {% for item in post_list %}
@@ -59,7 +59,14 @@
                     <div class="content">{{ item.fields.post_content|safe }}</div>
                 </div>
                 {% endfor %}
+            </div>
 
+            <div id="pageNavigation">
+                <ul>
+                 {% for page in pages %}
+                    <li id="page"><a href="/category/{{ selectName }}/{{ page }}/">Page {{ page }}</a></li>
+                {% endfor %}
+                </ul>
             </div>
 
             <!-- navigation -->
