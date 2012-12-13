@@ -23,7 +23,7 @@
     </head>
 
     <body>
-        <div id="container">
+        <div id="container" data-category="{{ selectName }}" data-maxPages="{{ max_pages }}" data-nextPage="{{ next_page }}" data-previousPage="{{ previous_page }}">
 
             <!-- header -->
             <div id="header">
@@ -33,7 +33,7 @@
             <div id="loading-status"></div>
 
             <!-- content -->
-            <div id="content" role="main" data-nextpage="{{ next_page }}">
+            <div id="content" role="main">
 
                 <!-- posts tempate -->
                 {% for item in post_list %}
@@ -129,6 +129,6 @@
         {% if isMobileDevice %}
             <script src="http://media.codecollision.com/js/mobile.js"></script>
         {% endif %}
-        <script src="http://media.codecollision.com/dist/scripts.min.js"></script>
+        <script src="http://media.codecollision.com/dist/scripts.js"></script>
     </body>
 </html>
